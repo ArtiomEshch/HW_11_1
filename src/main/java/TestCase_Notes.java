@@ -21,19 +21,19 @@ public class TestCase_Notes {
         driver.findElement(By.xpath("//button [@id='login_btn']")).click();
 
         // Test case - 2
-        WebElement newRecord = (new WebDriverWait(driver, 10)
+        WebElement newRecord = (new WebDriverWait(driver, 15)
                 .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//li [@id='writeThisDiary']"))));
         newRecord.click();
 
-        WebElement title = (new WebDriverWait(driver, 10)
+        WebElement title = (new WebDriverWait(driver, 15)
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//input [@id='postTitle']"))));
         title.sendKeys("Test");
 
-        WebElement message = (new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("body#tinymce"))));
+        WebElement message = (new WebDriverWait(driver, 15)
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='tinymce']"))));
         message.sendKeys("Test text");
 
-        WebElement submit = (new WebDriverWait(driver, 10)
+        WebElement submit = (new WebDriverWait(driver, 15)
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//input [@id='rewrite']"))));
         submit.click();
     }
