@@ -2,39 +2,33 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.concurrent.TimeUnit;
 
 public class TestCase_Notes {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         System.setProperty(
                 "webdriver.chrome.driver", "src/main/resources/chromedriver"
         );
         WebDriver driver = new ChromeDriver();
-        driver.get("https://diary.ru/user/login");
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.get("https://www.21vek.by/");
 
         // Test case - 1
-        driver.findElement(By.xpath("//div [@class='form-group field-loginform-recaptcha'] ")).click();
-        driver.findElement(By.id("loginform-username")).sendKeys("AY_AQA");
-        Thread.sleep(10000); // 10 секунд ожидания для прохождения капчи вручную
-        driver.findElement(By.id("loginform-password")).sendKeys("JAVA2022");
-        driver.findElement(By.xpath("//button [@id='login_btn']")).click();
+        driver.findElement(By.xpath("//span[@class='userToolsText']")).click();
+        driver.findElement(By.xpath("//button[@title='Вход']")).click();
+        driver.findElement(By.xpath("//input[@label='Электронная почта']"))
+                .sendKeys("maza2009i@mail.ru");
+        WebElement password = driver.findElement(By.xpath("//input[@label='Пароль']"));
+        password.sendKeys("UserP@ssword");
+        password.submit();
 
         // Test case - 2
-        WebElement newRecord = (new WebDriverWait(driver, 15)
-                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//li [@id='writeThisDiary']"))));
-        newRecord.click();
-
-        WebElement title = (new WebDriverWait(driver, 15)
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//input [@id='postTitle']"))));
-        title.sendKeys("Test");
-
-        WebElement message = (new WebDriverWait(driver, 15)
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='tinymce']"))));
-        message.sendKeys("Test text");
-
-        WebElement submit = (new WebDriverWait(driver, 15)
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//input [@id='rewrite']"))));
-        submit.click();
+        driver.findElement(By.id("catalogSearch"))
+                .sendKeys("Смартфон Apple iPhone 11 64GB / MHDA3 (черный)");
+        driver.findElement(By.xpath("//button[@class='Search_searchBtn__3fSOy']"))
+                .click();
+        driver.findElement(By.xpath("//a[@class='result__link j-ga_track']")).click();
+        driver.findElement(By.xpath("//div[@id=\"j-item-buyzone\"]//form[@class='j-to_basket']")).click();
     }
 }
